@@ -20,12 +20,12 @@ namespace ConsoleCalculadora.Services
 
         public int Multiplicar(int x, int y)
         {
-            return 0;
+            return x * y;
         }
 
         public int Dividir(int x, int y)
         {
-            return 0;
+            return x / y;
         }
 
         public List<string> Historico()
