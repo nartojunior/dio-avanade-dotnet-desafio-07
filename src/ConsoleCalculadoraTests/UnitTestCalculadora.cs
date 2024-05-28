@@ -4,6 +4,13 @@ namespace ConsoleCalculadoraTests
 {
     public class UnitTestCalculadora
     {
+        Calculadora calc;
+
+        public UnitTestCalculadora()
+        {
+            calc = new Calculadora();
+        }
+
         [Theory]
         [InlineData(1, 2, 3)]
         [InlineData(3, 3, 6)]
@@ -86,9 +93,9 @@ namespace ConsoleCalculadoraTests
             Calculadora calc = new();
 
             calc.Somar(1, 2);
-            calc.Somar(1, 2);
-            calc.Somar(1, 2);
-            calc.Somar(1, 2);
+            calc.Somar(2, 3);
+            calc.Somar(3, 4);
+            calc.Somar(4, 5);
 
             var lista = calc.Historico();
 
