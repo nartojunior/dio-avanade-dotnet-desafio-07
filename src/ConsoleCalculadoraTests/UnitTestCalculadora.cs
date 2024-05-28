@@ -78,5 +78,23 @@ namespace ConsoleCalculadoraTests
             Assert.Throws<DivideByZeroException>(
                 () => calc.Dividir(2, 0));
         }
+
+        [Fact]
+        public void TestHistoricoCom3Acoes()
+        {
+            // Arrange
+            Calculadora calc = new();
+
+            calc.Somar(1, 2);
+            calc.Somar(1, 2);
+            calc.Somar(1, 2);
+            calc.Somar(1, 2);
+
+            var lista = calc.Historico();
+
+            // Action/Assert
+            Assert.NotEmpty(lista);
+            Assert.Equal(3, lista.Count);
+        }
     }
 }

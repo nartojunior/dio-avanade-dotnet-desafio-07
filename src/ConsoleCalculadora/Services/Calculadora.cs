@@ -28,7 +28,7 @@ namespace ConsoleCalculadora.Services
             return 0;
         }
 
-        public List<string> Historico(int x, int y)
+        public List<string> Historico()
         {
             return new List<string>();
         }
