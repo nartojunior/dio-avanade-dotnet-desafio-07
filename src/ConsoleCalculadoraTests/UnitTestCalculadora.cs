@@ -1,14 +1,21 @@
 using ConsoleCalculadora.Services;
+using Microsoft.VisualStudio.TestPlatform.Utilities;
+using Xunit.Abstractions;
 
 namespace ConsoleCalculadoraTests
 {
     public class UnitTestCalculadora
     {
-        Calculadora calc;
+        // serve para exibir mensagens no Gerenciador de Testes.
+        private readonly ITestOutputHelper output;
 
-        public UnitTestCalculadora()
+        public UnitTestCalculadora(ITestOutputHelper output)
         {
-            calc = new Calculadora();
+            this.output = output;
+        }
+        public Calculadora SetupCalculadora() 
+        {
+            return new Calculadora(DateTime.Now.ToLongTimeString());
         }
 
         [Theory]
@@ -18,10 +25,11 @@ namespace ConsoleCalculadoraTests
         public void TestSomar(int x, int y, int expected)
         {
             // Arrange
-            Calculadora calc = new();
+            Calculadora calc = SetupCalculadora();
 
             // Act(ion)
             var result = calc.Somar(x, y);
+            ShowHistorico(calc);
 
             // Assert
             Assert.Equal(expected, result);
@@ -34,10 +42,11 @@ namespace ConsoleCalculadoraTests
         public void TestSubtrair(int x, int y, int expected)
         {
             // Arrange
-            Calculadora calc = new();
+            Calculadora calc = SetupCalculadora();
 
             // Act(ion)
             var result = calc.Subtrair(x, y);
+            ShowHistorico(calc);
 
             // Assert
             Assert.Equal(expected, result);
@@ -50,10 +59,11 @@ namespace ConsoleCalculadoraTests
         public void TestMultiplicar(int x, int y, int expected)
         {
             // Arrange
-            Calculadora calc = new();
+            Calculadora calc = SetupCalculadora();
 
             // Act(ion)
             var result = calc.Multiplicar(x, y);
+            ShowHistorico(calc);
 
             // Assert
             Assert.Equal(expected, result);
@@ -66,10 +76,11 @@ namespace ConsoleCalculadoraTests
         public void TestDividir(int x, int y, int expected)
         {
             // Arrange
-            Calculadora calc = new();
+            Calculadora calc = SetupCalculadora();
 
             // Act(ion)
             var result = calc.Dividir(x, y);
+            ShowHistorico(calc);
 
             // Assert
             Assert.Equal(expected, result);
@@ -79,7 +90,7 @@ namespace ConsoleCalculadoraTests
         public void TestDividirPorZero()
         {
             // Arrange
-            Calculadora calc = new();
+            Calculadora calc = SetupCalculadora();
 
             // Action/Assert
             Assert.Throws<DivideByZeroException>(
@@ -90,7 +101,7 @@ namespace ConsoleCalculadoraTests
         public void TestHistoricoCom3Acoes()
         {
             // Arrange
-            Calculadora calc = new();
+            Calculadora calc = SetupCalculadora();
 
             calc.Somar(1, 2);
             calc.Somar(2, 3);
@@ -99,9 +110,19 @@ namespace ConsoleCalculadoraTests
 
             var lista = calc.Historico();
 
+            ShowHistorico(calc);
+ 
             // Action/Assert
             Assert.NotEmpty(lista);
             Assert.Equal(3, lista.Count);
+        }
+
+        private void ShowHistorico(Calculadora calc) 
+        {
+            foreach (var acao in calc.Historico())
+            {
+                output.WriteLine(acao);
+            }
         }
     }
 }

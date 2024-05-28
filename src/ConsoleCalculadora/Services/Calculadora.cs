@@ -10,33 +10,35 @@ namespace ConsoleCalculadora.Services
     public class Calculadora
     {
         private List<string> historico;
+        private string data;        
 
-        public Calculadora()
+        public Calculadora(string data)
         {
+            this.data = data;
             historico = new List<string>();
         }
 
         public int Somar(int x, int y) 
         {
-            historico.Insert(0, $"{nameof(Somar)}: {x} e {y}");
+            InsertAcao(nameof(Somar), x, y);
             return x + y;
         }
 
         public int Subtrair(int x, int y)
         {
-            historico.Insert(0, $"{nameof(Subtrair)}: {x} e {y}");
+            InsertAcao(nameof(Subtrair), x, y);
             return x - y;
         }
 
         public int Multiplicar(int x, int y)
         {
-            historico.Insert(0, $"{nameof(Multiplicar)}: {x} e {y}");
+            InsertAcao(nameof(Multiplicar), x, y);
             return x * y;
         }
 
         public int Dividir(int x, int y)
         {
-            historico.Insert(0, $"{nameof(Dividir)}: {x} e {y}");
+            InsertAcao(nameof(Dividir), x, y);
             return x / y;
         }
 
@@ -48,5 +50,9 @@ namespace ConsoleCalculadora.Services
             return historico;
         }
 
+        private void InsertAcao(string acao, int x, int y) 
+        {
+            historico.Insert(0, $"{acao}: {x} e {y} em ({this.data})");
+        }
     }
 }
