@@ -15,7 +15,7 @@ namespace ConsoleCalculadora.Services
 
         public int Subtrair(int x, int y)
         {
-            return 0;
+            return x - y;
         }
 
         public int Multiplicar(int x, int y)
